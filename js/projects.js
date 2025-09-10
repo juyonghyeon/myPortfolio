@@ -84,21 +84,40 @@
     window.PortfolioModal.open(html);
   }
 
-  // 좌측 소개 카드 클릭/키보드
+  // 헬퍼: 프로젝트 row에서 key 얻기
+  function getKeyFromEl(el) {
+    return el?.closest('.project-row')?.dataset?.key || null;
+  }
+
+  // ❶ 클릭: 왼쪽 소개 카드 어디를 클릭해도 모달 열기 (내부 링크 이동 금지)
   document.addEventListener('click', (e) => {
-    const btn = e.target.closest('[data-open]');
-    if (btn) openModal(btn.dataset.open);
     const brief = e.target.closest('.proj-brief');
-    if (brief && brief.parentElement?.dataset.key) {
-      openModal(brief.parentElement.dataset.key);
+    if (brief) {
+      const key = getKeyFromEl(brief);
+      if (key) {
+        if (e.target.closest('a')) e.preventDefault(); // 카드 내부 링크도 이동 대신 모달
+        openModal(key);
+        return;
+      }
     }
+    // (필요 시 우측 썸네일도 모달로 열고 싶으면 아래 주석 해제)
+    // const shot = e.target.closest('.proj-shot');
+    // if (shot) {
+    //   const key = getKeyFromEl(shot);
+    //   if (key) {
+    //     e.preventDefault();
+    //     openModal(key);
+    //   }
+    // }
   });
+
+  // ❷ 키보드 접근성: 카드 포커스 상태에서 Enter/Space → 모달
   document.addEventListener('keydown', (e) => {
     const brief = e.target.closest('.proj-brief');
     if (!brief) return;
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
-      const key = brief.parentElement?.dataset.key;
+      const key = getKeyFromEl(brief);
       if (key) openModal(key);
     }
   });

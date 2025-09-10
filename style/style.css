@@ -239,3 +239,37 @@ nav a:hover, nav a:focus { color: var(--text); }
 body.modal-open { overflow: hidden; }
 
 [inert] { pointer-events: none; user-select: none; }
+
+/* 왼쪽 소개 카드에 커버 오버레이 */
+.proj-brief { position: relative; overflow: hidden; }
+.brief-cover {
+  position: absolute; inset: 0;
+  display: grid; place-items: center;
+  background: rgba(0,0,0,.58);
+  opacity: 0; transform: translateY(6px);
+  transition: opacity .18s ease, transform .18s ease;
+  z-index: 2;
+}
+.brief-cover .cover-inner {
+  display: grid; gap: 10px; text-align: center;
+}
+.brief-cover .cover-title {
+  color: #fff; font-weight: 800; font-size: 1.05rem;
+}
+.brief-cover .cover-cta {
+  padding: 10px 14px; border-radius: 12px;
+  border: 1px solid rgba(255,255,255,.4);
+  background: rgba(255,255,255,.12);
+  color: #fff; font-weight: 700;
+  backdrop-filter: blur(4px);
+}
+
+/* 마우스 오버/키보드 포커스 시 커버 표시 */
+.proj-brief:hover .brief-cover,
+.proj-brief:focus-within .brief-cover { opacity: 1; transform: translateY(0); }
+
+/* 터치(hover 불가) 환경: 커버 숨김 */
+@media (hover: none) {
+  .brief-cover { display: none; }
+}
+
