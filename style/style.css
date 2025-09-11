@@ -54,7 +54,7 @@ nav a:hover, nav a:focus { color: var(--text); }
   color: var(--text);
   text-align: center;
   isolation: isolate;
-  background: #0b0c10 url('../images/hero.jpg') center/cover no-repeat; /* 배경 이미지는 교체 가능 */
+  background: #0b0c10 url('../images/Introduce.jpg') center/cover no-repeat; /* 배경 이미지는 교체 가능 */
 }
 .hero::after { /* 어두운 오버레이 */
   content: ""; position: absolute; inset: 0; z-index: -1;
@@ -77,7 +77,7 @@ nav a:hover, nav a:focus { color: var(--text); }
 
 .stack-logos { display: grid; grid-template-columns: repeat(auto-fill, minmax(86px, 1fr)); gap: 12px; margin-top: 12px; }
 .stack-logos button {
-  background: #f7f8fc; border: 1px solid #eef0f6; border-radius: 12px; padding: 10px; cursor: pointer; transition: transform .15s ease;
+  background: #F2F4F8; border: 1px solid #D0D7E2; border-radius: 12px; padding: 10px; cursor: pointer; transition: transform .15s ease;
 }
 .stack-logos button:hover { transform: translateY(-2px); }
 .stack-logos img { width: 100%; height: 58px; object-fit: contain; display: block; }
@@ -97,8 +97,6 @@ nav a:hover, nav a:focus { color: var(--text); }
   position: absolute; top: 12px; left: 12px; padding: 6px 10px; border-radius: 999px; font-size: 12px;
   font-weight: 700; background: rgba(0,0,0,.55); color: #fff; border: 1px solid rgba(255,255,255,.2);
 }
-.card[data-status="running"] .status-pill { background: #1e7e34; }
-.card[data-status="stopped"] .status-pill { background: #6c757d; }
 .card a.cover-link { position: absolute; inset: 0; z-index: 5; }
 
 /* 타이틀 공통 */
@@ -175,8 +173,8 @@ nav a:hover, nav a:focus { color: var(--text); }
 }
 
 /* 상태 색상: 운영중 = 파랑, 개선중 = 주황 */
-.proj-shot[data-status="운영중"] .status-badge { background: #2563eb; }   /* 파랑 */
-.proj-shot[data-status="개선중"] .status-badge { background: #f59e0b; }   /* 주황 */
+.proj-shot[data-status="운영중"] .status-badge { background: #2563eb; }
+.proj-shot[data-status="개선중"] .status-badge { background: #f59e0b; }
 
 /* Hover 시 더 또렷하게 */
 .proj-shot:hover .status-badge { opacity: 1; }
@@ -495,3 +493,77 @@ body.modal-open .brief-cover {
   box-shadow: 0 2px 8px rgba(0,0,0,.2);
 }
 
+/* ===== GitHub 레포 섹션 뱃지 스타일 ===== */
+
+/* 리스트 레이아웃 */
+.repo-list {
+  list-style: none !important;
+  margin: 10px 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;       /* 필요하면 2열: repeat(auto-fit,minmax(260px,1fr)) */
+  gap: 8px;
+}
+
+/* 링크 카드 */
+.repo-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  text-decoration: none;
+  background: rgba(255,255,255,0.06);             /* 다크 */
+  transition: background .18s ease, transform .12s ease;
+}
+.repo-link:hover { background: rgba(255,255,255,0.10); transform: translateY(-1px); }
+.repo-link:focus-visible { outline: 2px solid var(--brand, #6ea8fe); outline-offset: 2px; }
+
+/* 알약(badge) */
+.repo-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 38px;
+  height: 24px;
+  padding: 0 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: .02em;
+  user-select: none;
+  background: #2b2f3a;
+  color: #e5e7eb;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+/* 타입별 색상 (원하면 팔레트 맞춰 조정) */
+.repo-pill.FE {              /* Frontend */
+  background: #1e293b;       /* slate-800 */
+  color: #93c5fd;            /* blue-300 */
+  border-color: rgba(59,130,246,.2);
+}
+.repo-pill.BE {              /* Backend */
+  background: #23203a;       /* indigo-ish */
+  color: #a5b4fc;            /* indigo-300 */
+  border-color: rgba(99,102,241,.25);
+}
+.repo-pill.ETC {             /* 기타/ML/데브옵스 등 */
+  background: #2f2a1c;       /* amber-ish */
+  color: #fcd34d;            /* amber-300 */
+  border-color: rgba(245,158,11,.25);
+}
+
+/* 레포 이름 텍스트 */
+.repo-name {
+  font-weight: 600;
+  color: inherit;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mt15 {
+  margin-top: 15px;
+}

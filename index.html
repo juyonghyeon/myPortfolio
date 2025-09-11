@@ -2,47 +2,267 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>내 웹페이지</title>
-  <!-- 스타일 시트 -->
-  <link rel="stylesheet" href="styles.css" />
-  <!-- 파비콘 -->
-  <link rel="icon" type="image/png" href="favicon.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>주용현 | 포트폴리오</title>
+  <meta name="description" content="수학적 사고로 문제를 깊이 이해하는 차분한 개발자 주용현의 포트폴리오" />
+  <link rel="stylesheet" href="style/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
 <body>
-  <header>
-    <h1>환영합니다!</h1>
-    <nav>
-      <ul>
-        <li><a href="#about">소개</a></li>
-        <li><a href="#services">서비스</a></li>
-        <li><a href="#contact">연락처</a></li>
-      </ul>
-    </nav>
+  <!-- 헤더: 좌측 이름 / 우측 nav -->
+  <header class="site-header" aria-label="주요 메뉴">
+    <div class="container nav-wrap">
+      <div class="brand"><a href="#top">Juyonghyeon</a></div>
+      <nav aria-label="섹션 이동">
+        <a href="#introduce">Introduce</a>
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
   </header>
 
-  <main>
-    <section id="about">
-      <h2>소개</h2>
-      <p>여기에 자기소개나 사이트 소개 내용을 작성하세요.</p>
+  <main id="top">
+    <!-- 메인1: Introduce (어두운 배경 이미지 가능) -->
+    <section id="introduce" class="hero" aria-labelledby="intro-title">
+      <div class="inner">
+        <p class="kicker">INTRODUCE</p>
+        <h1 id="intro-title">
+          <span class="accent">안녕하세요 수학적 사고를 바탕으로 개발에 도전하는 차분한 개발자 주용현입니다</span>
+        </h1>
+        <p class="lead">
+          수학적 사고로 문제를 깊이 이해하고, 본질적인 해결책을 찾겠습니다.<br />
+          끊임없이 학습하며 인공지능과 개발 역량을 함께 키워나가겠습니다.<br />
+          차분한 태도로 협력하며 신뢰받는 개발자가 되겠습니다.
+        </p>
+      </div>
     </section>
 
-    <section id="services">
-      <h2>서비스</h2>
-      <p>제공하는 서비스나 기능을 설명하세요.</p>
+    <!-- 메인2: About me (좌: 사진 / 우: 학력, 기술스택, 교육내용) -->
+    <section id="about" aria-labelledby="about-title">
+      <div class="container">
+        <h2 class="section-title" id="about-title">About me</h2>
+
+        <div class="about-grid">
+          <!-- 좌측: 사진 -->
+          <img src="images/profile.jpg" alt="프로필 사진" class="about-photo" />
+
+          <!-- 우측: 내용 카드 -->
+          <div class="about-card">
+            <h3>학력</h3>
+            <p>
+              인천대학교 수학과 졸업
+            </p>
+            <hr />
+
+            <h3>기술스택</h3>
+            <div class="stack-logos" aria-live="polite">
+              <button type="button" class="skill" data-skill="JavaScript" title="JavaScript">
+                <img src="images/JavaScript.jpg" alt="JavaScript" />
+              </button>
+              <button type="button" class="skill" data-skill="TypeScript" title="TypeScript">
+                <img src="images/TypeScript.jpg" alt="TypeScript" />
+              </button>
+              <button type="button" class="skill" data-skill="React" title="React">
+                <img src="images/React.jpg" alt="React" />
+              </button>
+              <button type="button" class="skill" data-skill="Next.js" title="Next.js">
+                <img src="images/Next.jpg" alt="Next.js" />
+              </button>
+              <button type="button" class="skill" data-skill="HTML5" title="HTML5">
+                <img src="images/HTML5.jpg" alt="HTML5" />
+              </button>
+              <button type="button" class="skill" data-skill="CSS3" title="CSS3">
+                <img src="images/svgs/CSS3.svg" alt="Css3" />
+              </button>
+
+              <!-- Spring Boot: SVG로 교체 -->
+              <button type="button" class="skill" data-skill="Spring Boot" title="Spring Boot">
+                <img src="images/svgs/SpringBoot.svg" alt="Spring Boot" />
+              </button>
+
+              <button type="button" class="skill" data-skill="JPA/Hibernate" title="JPA/Hibernate">
+                <img src="images/JPA_Hibernate.jpg" alt="JPA / Hibernate" />
+              </button>
+              <button type="button" class="skill" data-skill="REST API" title="REST API">
+                <img src="images/REST_API.jpg" alt="REST API" />
+              </button>
+
+              <!-- MySQL: SVG로 교체 (주의: 대소문자 'Mysql.svg') -->
+              <button type="button" class="skill" data-skill="MySQL" title="MySQL">
+                <img src="images/svgs/Mysql.svg" alt="MySQL" />
+              </button>
+
+              <!-- Python: SVG로 교체 -->
+              <button type="button" class="skill" data-skill="Python" title="Python">
+                <img src="images/svgs/Python.svg" alt="Python" />
+              </button>
+
+              <button type="button" class="skill" data-skill="AWS" title="AWS">
+                <img src="images/AWS.jpg" alt="AWS" />
+              </button>
+              <button type="button" class="skill" data-skill="Docker" title="Docker">
+                <img src="images/Docker.jpg" alt="Docker" />
+              </button>
+              <button type="button" class="skill" data-skill="Docker Hub" title="Docker Hub">
+                <img src="images/Docker Hub.jpg" alt="Docker Hub" />
+              </button>
+
+              <!-- Git: SVG로 교체 -->
+              <button type="button" class="skill" data-skill="Git" title="Git">
+                <img src="images/svgs/Git.svg" alt="Git" />
+              </button>
+
+              <button type="button" class="skill" data-skill="GitHub" title="GitHub">
+                <img src="images/GitHub.jpg" alt="GitHub" />
+              </button>
+              <!-- VSCode: SVG로 교체 (파일명: Visualstudio_code.svg) -->
+              <button type="button" class="skill" data-skill="VSCode" title="VSCode">
+                <img src="images/svgs/Visualstudio_code.svg" alt="VSCode" />
+              </button>
+
+              <button type="button" class="skill" data-skill="IntelliJ" title="IntelliJ">
+                <img src="images/IntelliJ.jpg" alt="IntelliJ" />
+              </button>
+              <button type="button" class="skill" data-skill="YOLO API" title="YOLO API">
+                <img src="images/YOLO_API.jpg" alt="YOLO API" />
+              </button>
+              <button type="button" class="skill" data-skill="Tmap API" title="Tmap API">
+                <img src="images/TmapAPI.jpg" alt="Tmap API" />
+              </button>
+            </div>
+            <p class="skill-note"></p>
+            <div id="skill-detail" aria-live="polite"></div>
+            <hr />
+            </ul>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <section id="contact">
-      <h2>연락처</h2>
-      <p>이메일: example@email.com</p>
+    <!-- 메인3: Projects 카드 쌍 구성-->
+    <section id="projects" aria-labelledby="projects-title">
+      <div class="container">
+        <h2 class="section-title" id="projects-title">Projects</h2>
+        <div class="projects-list">
+          <!-- 프로젝트 1: jyh.koreait.xyz -->
+          <div class="project-row" data-key="jyh" data-status="개선중">
+            <article class="proj-brief" role="button" tabindex="0" aria-label="jyh.koreait.xyz 상세 보기">
+              <h3 class="proj-title">
+                <a href="http://jyh.koreait.xyz" target="_blank" rel="noopener">스프링 부트 기반 프로젝트 모음</a>
+              </h3>
+              <p class="proj-sum">스프링 부트 학습 과정에서 만든 개인 프로젝트를 모아 제공하는 웹 페이지입니다.</p>
+              <p class="proj-sum">소셜 로그인, 머신러닝 기반 당뇨 위험 설문 등 기능을 포함합니다.</p>
+              <div class="brief-cover" aria-hidden="true">
+                <div class="cover-inner">
+                  <span class="cover-title">자세히 보기</span>
+                </div>
+              </div>
+            </article>
+
+            <figure class="proj-shot" data-status="개선중">
+              <a href="http://jyh.koreait.xyz" target="_blank" rel="noopener" aria-label="jyh.koreait.xyz 방문">
+                <img src="images/project_jyh.jpg" alt="jyh.koreait.xyz 메인 미리보기" />
+                <figcaption class="status-badge">유저 접근성 개선중</figcaption>
+              </a>
+            </figure>
+          </div>
+
+          <!-- 프로젝트 2: adddrawing.koreait.xyz -->
+          <div class="project-row" data-key="addrawing" data-status="개선중">
+            <article class="proj-brief" role="button" tabindex="0" aria-label="adddrawing.koreait.xyz 상세 보기">
+              <h3 class="proj-title"><a href="http://adddrawing.koreait.xyz" target="_blank" rel="noopener">주제 기반 그림 판별 프로젝트</a></h3>
+              <p class="proj-sum">사용자가 그린 그림이 제시된 주제와 얼마나 맞는지 유사도로 알려주는 웹 서비스입니다.</p>
+              <p class="proj-sum">주제와의 적합 여부와 함께 유사도 점수를 제공합니다.</p>
+              <div class="brief-cover" aria-hidden="true">
+                <div class="cover-inner">
+                  <span class="cover-title">자세히 보기</span>
+                </div>
+              </div>
+            </article>
+
+            <figure class="proj-shot" data-status="개선중">
+              <a href="http://adddrawing.koreait.xyz" target="_blank" rel="noopener" aria-label="adddrawing.koreait.xyz 방문">
+                <img src="images/project_addrawing.jpg" alt="adddrawing.koreait.xyz 메인 미리보기" />
+                <figcaption class="status-badge">성능 개선중</figcaption>
+              </a>
+            </figure>
+          </div>
+
+          <!-- 프로젝트 3: maengle.xyz -->
+          <div class="project-row" data-key="maengle" data-status="운영중">
+            <article class="proj-brief" role="button" tabindex="0" aria-label="maengle.xyz 상세 보기">
+              <h3 class="proj-title"><a href="http://maengle.xyz" target="_blank" rel="noopener">맹글 프로젝트</a></h3>
+              <p class="proj-sum">자연어 처리 AI로 채팅할 수 있는 커뮤니티형 웹 서비스입니다.</p>
+              <p class="proj-sum">마이페이지, 소셜 로그인, 게시글 작성 등 사용자 기능을 제공합니다.
+              </p>
+              <div class="brief-cover" aria-hidden="true">
+                <div class="cover-inner">
+                  <span class="cover-title">자세히 보기</span>
+                </div>
+              </div>
+            </article>
+
+            <figure class="proj-shot" data-status="운영중">
+              <a href="http://maengle.xyz" target="_blank" rel="noopener" aria-label="maengle.xyz 방문">
+                <img src="images/project_maengle.jpg" alt="maengle.xyz 메인 미리보기" />
+                <figcaption class="status-badge">운영중</figcaption>
+              </a>
+            </figure>
+          </div>
+
+          <!-- 프로젝트 4: chulfudoc.xyz -->
+          <div class="project-row" data-key="chulfudoc" data-status="운영중">
+            <article class="proj-brief" role="button" tabindex="0" aria-label="chulfudoc.xyz 상세 보기">
+              <h3 class="proj-title"><a href="http://chulfudoc.xyz" target="_blank" rel="noopener">철푸닥 프로젝트</a></h3>
+              <p class="proj-sum">AI 쓰러짐 감지와 응급실 정보를 제공하는 응급 대응 웹 서비스입니다.</p>
+              <p class="proj-sum">검색·지도 마커·감지 결과 등 3가지 관점으로 병원 정보를 안내합니다.</p>
+              <div class="brief-cover" aria-hidden="true">
+                <div class="cover-inner">
+                  <span class="cover-title">자세히 보기</span>
+                </div>
+              </div>
+            </article>
+
+            <figure class="proj-shot" data-status="운영중">
+              <a href="http://chulfudoc.xyz" target="_blank" rel="noopener" aria-label="chulfudoc.xyz 방문">
+                <img src="images/project_chulfudoc.jpg" alt="chulfudoc.xyz 메인 미리보기" />
+                <figcaption class="status-badge">운영중</figcaption>
+              </a>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- 메인4: 연락처 & 이력서 다운로드 -->
+    <section id="contact" aria-labelledby="contact-title">
+      <div class="container contact-wrap">
+        <h2 class="section-title" id="contact-title">Contact</h2>
+        <div>
+          <div>
+            📞 전화번호 : 010-3224-7827
+          </div>
+          <div>📮 <a href="mailto:jyh928578@gmail.com">이메일 : jyh928578@gmail.com</a></div>
+          <div>
+            <i class="fa-brands fa-github"></i>
+            <a href="https://github.com/juyonghyeon" target="_blank" rel="noopener">
+              깃허브 : github.com/juyonghyeon
+            </a>
+          </div>
+          <div class="mt15">💼 <a href="resume/juyonghyeon_resume.pdf" download class="resume-btn">이력서 다운로드</a></div>
+        </div>
+      </div>
     </section>
   </main>
 
-  <footer>
-    <p>&copy; 2025 내 웹페이지. All rights reserved.</p>
-  </footer>
+  <!-- 모달 마운트 지점: 구현은 외부 JS/CSS에서 처리 (이 파일에서는 정의 X) -->
+  <div id="modal-root" hidden></div>
 
-  <!-- 자바스크립트 파일 -->
-  <script src="app.js"></script>
+  <!-- 외부 스크립트 자리 (모달, 호버 상태 텍스트, 스킬 클릭 설명 등) -->
+  <script src="js/modal.js" defer></script>
+  <script src="js/skill.js" defer></script>
+  <script src="js/projects.js" defer></script>
 </body>
 </html>
