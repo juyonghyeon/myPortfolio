@@ -140,26 +140,22 @@
       </div>
     </section>
 
-    <!-- 메인3: Projects (카드 쌍 구성, 호버 텍스트/상태, 모달/외부 링크 후킹) -->
+    <!-- 메인3: Projects 카드 쌍 구성-->
     <section id="projects" aria-labelledby="projects-title">
       <div class="container">
         <h2 class="section-title" id="projects-title">Projects</h2>
-        <p class="section-sub">좌측 소개를 클릭하면 상세 모달이 뜨고, 우측 이미지를 호버하면 운영 상태가 표시됩니다.</p>
-
         <div class="projects-list">
           <!-- 프로젝트 1: jyh.koreait.xyz -->
           <div class="project-row" data-key="jyh" data-status="개선중">
             <article class="proj-brief" role="button" tabindex="0" aria-label="jyh.koreait.xyz 상세 보기">
               <h3 class="proj-title">
-                <a href="http://jyh.koreait.xyz" target="_blank" rel="noopener">jyh.koreait.xyz</a>
+                <a href="http://jyh.koreait.xyz" target="_blank" rel="noopener">스프링 부트 기반 프로젝트 모음</a>
               </h3>
-              <p class="proj-one">유저 접근성 개선을 목표로 한 서비스(운영현황: 개선중)</p>
-
-              <!-- 🔽 새로 추가 -->
+              <p class="proj-sum">스프링 부트 학습 과정에서 만든 개인 프로젝트를 모아 제공하는 웹 페이지입니다.</p>
+              <p class="proj-sum">소셜 로그인, 머신러닝 기반 당뇨 위험 설문 등 기능을 포함합니다.</p>
               <div class="brief-cover" aria-hidden="true">
                 <div class="cover-inner">
                   <span class="cover-title">자세히 보기</span>
-                  <button type="button" class="cover-cta">열기</button>
                 </div>
               </div>
             </article>
@@ -167,7 +163,7 @@
             <figure class="proj-shot" data-status="개선중">
               <a href="http://jyh.koreait.xyz" target="_blank" rel="noopener" aria-label="jyh.koreait.xyz 방문">
                 <img src="images/project_jyh.jpg" alt="jyh.koreait.xyz 메인 미리보기" />
-                <figcaption class="status-badge">개선중</figcaption>
+                <figcaption class="status-badge">유저 접근성 개선중</figcaption>
               </a>
             </figure>
           </div>
@@ -175,12 +171,12 @@
           <!-- 프로젝트 2: adddrawing.koreait.xyz -->
           <div class="project-row" data-key="addrawing" data-status="개선중">
             <article class="proj-brief" role="button" tabindex="0" aria-label="adddrawing.koreait.xyz 상세 보기">
-              <h3 class="proj-title"><a href="http://adddrawing.koreait.xyz" target="_blank" rel="noopener">adddrawing.koreait.xyz</a></h3>
-              <p class="proj-one">그림 주제 유사도 제공(운영현황: AI 서버 개선중)</p>
+              <h3 class="proj-title"><a href="http://adddrawing.koreait.xyz" target="_blank" rel="noopener">주제 기반 그림 판별 프로젝트</a></h3>
+              <p class="proj-sum">사용자가 그린 그림이 제시된 주제와 얼마나 맞는지 유사도로 알려주는 웹 서비스입니다.</p>
+              <p class="proj-sum">주제와의 적합 여부와 함께 유사도 점수를 제공합니다.</p>
               <div class="brief-cover" aria-hidden="true">
                 <div class="cover-inner">
                   <span class="cover-title">자세히 보기</span>
-                  <button type="button" class="cover-cta">열기</button>
                 </div>
               </div>
             </article>
@@ -188,7 +184,7 @@
             <figure class="proj-shot" data-status="개선중">
               <a href="http://adddrawing.koreait.xyz" target="_blank" rel="noopener" aria-label="adddrawing.koreait.xyz 방문">
                 <img src="images/project_addrawing.jpg" alt="adddrawing.koreait.xyz 메인 미리보기" />
-                <figcaption class="status-badge">개선중</figcaption>
+                <figcaption class="status-badge">성능 개선중</figcaption>
               </a>
             </figure>
           </div>
@@ -196,12 +192,13 @@
           <!-- 프로젝트 3: maengle.xyz -->
           <div class="project-row" data-key="maengle" data-status="운영중">
             <article class="proj-brief" role="button" tabindex="0" aria-label="maengle.xyz 상세 보기">
-              <h3 class="proj-title"><a href="http://maengle.xyz" target="_blank" rel="noopener">maengle.xyz</a></h3>
-              <p class="proj-one">회원/관리자 기능 제공 커뮤니티 서비스 (운영중)</p>
+              <h3 class="proj-title"><a href="http://maengle.xyz" target="_blank" rel="noopener">맹글 프로젝트</a></h3>
+              <p class="proj-sum">자연어 처리 AI로 채팅할 수 있는 커뮤니티형 웹 서비스입니다.</p>
+              <p class="proj-sum">마이페이지, 소셜 로그인, 게시글 작성 등 사용자 기능을 제공합니다.
+              </p>
               <div class="brief-cover" aria-hidden="true">
                 <div class="cover-inner">
                   <span class="cover-title">자세히 보기</span>
-                  <button type="button" class="cover-cta">열기</button>
                 </div>
               </div>
             </article>
@@ -217,12 +214,12 @@
           <!-- 프로젝트 4: chulfudoc.xyz -->
           <div class="project-row" data-key="chulfudoc" data-status="운영중">
             <article class="proj-brief" role="button" tabindex="0" aria-label="chulfudoc.xyz 상세 보기">
-              <h3 class="proj-title"><a href="http://chulfudoc.xyz" target="_blank" rel="noopener">chulfudoc.xyz</a></h3>
-              <p class="proj-one">AI 쓰러짐 감지 & 응급실 정보 제공 (운영중)</p>
+              <h3 class="proj-title"><a href="http://chulfudoc.xyz" target="_blank" rel="noopener">철푸닥 프로젝트</a></h3>
+              <p class="proj-sum">AI 쓰러짐 감지와 응급실 정보를 제공하는 응급 대응 웹 서비스입니다.</p>
+              <p class="proj-sum">검색·지도 마커·감지 결과 등 3가지 관점으로 병원 정보를 안내합니다.</p>
               <div class="brief-cover" aria-hidden="true">
                 <div class="cover-inner">
                   <span class="cover-title">자세히 보기</span>
-                  <button type="button" class="cover-cta">열기</button>
                 </div>
               </div>
             </article>
@@ -244,11 +241,14 @@
       <div class="container contact-wrap">
         <h2 class="section-title" id="contact-title">Contact</h2>
         <div>
-          <div>📮 <a href="mailto:jyh928578@gmail.com">jyh928578@gmail.com</a></div>
+          <div>
+            📞 전화번호 : 010-3224-7827
+          </div>
+          <div>📮 <a href="mailto:jyh928578@gmail.com">이메일 : jyh928578@gmail.com</a></div>
           <div>
             <i class="fa-brands fa-github"></i>
             <a href="https://github.com/juyonghyeon" target="_blank" rel="noopener">
-              github.com/juyonghyeon
+              깃허브 : github.com/juyonghyeon
             </a>
           </div>
           <div>💼 <a href="resume/juyonghyeon_resume.pdf" download class="resume-btn">이력서 다운로드</a></div>

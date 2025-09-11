@@ -13,23 +13,51 @@ function getFocusable(container) {
   )).filter(el => !el.hasAttribute('disabled') && !el.getAttribute('aria-hidden'));
 }
 
-// 🔒 스크롤 잠금(스크롤바 폭 보정 + iOS 터치 차단)
+// 🔒 스크롤 잠금 (rAF 복원 + iOS 터치 차단)
+let __locked = false;
+let __scrollY = 0;
+let __prevScrollBehavior = '';
 function lockScroll(lock) {
   const sbw = window.innerWidth - document.documentElement.clientWidth;
-  if (lock) {
-    document.documentElement.style.overflow = 'hidden';
-    document.body.style.overflow = 'hidden';
-    if (sbw > 0) {
-      document.documentElement.style.paddingRight = sbw + 'px';
-      document.body.style.paddingRight = sbw + 'px';
-    }
+
+  if (lock && !__locked) {
+    __locked = true;
+    __prevScrollBehavior = document.documentElement.style.scrollBehavior;
+    document.documentElement.style.scrollBehavior = 'auto';
+
+    __scrollY = window.pageYOffset || document.documentElement.scrollTop || 0;
+
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${__scrollY}px`;
+    document.body.style.left = '0';
+    document.body.style.right = '0';
+    document.body.style.width = '100%';
+    if (sbw > 0) document.body.style.paddingRight = sbw + 'px';
+
     document.addEventListener('touchmove', preventTouch, { passive: false });
-  } else {
-    document.documentElement.style.overflow = '';
-    document.body.style.overflow = '';
-    document.documentElement.style.paddingRight = '';
-    document.body.style.paddingRight = '';
+    return;
+  }
+
+  if (!lock && __locked) {
     document.removeEventListener('touchmove', preventTouch);
+
+    // body.style.top에서 실제 값 추출
+    const y = Math.abs(parseInt(document.body.style.top || '0', 10)) || __scrollY;
+
+    // 고정 해제
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.left = '';
+    document.body.style.right = '';
+    document.body.style.width = '';
+    document.body.style.paddingRight = '';
+
+    // 레이아웃 해제 → 다음 프레임에 복원
+    requestAnimationFrame(() => {
+      window.scrollTo(0, y);
+      document.documentElement.style.scrollBehavior = __prevScrollBehavior || '';
+      __locked = false;
+    });
   }
 }
 function preventTouch(e){ e.preventDefault(); }
@@ -39,7 +67,8 @@ function preventTouch(e){ e.preventDefault(); }
   if (!root) return;
 
   let lastFocus = null;
-  let removeTrapTab = null; // 👈 trapTab 해제용 저장
+  let removeTrapTab = null;
+  let removeCaptureClose = null;
 
   function ensureRootFixed() {
     Object.assign(root.style, { position: 'fixed', inset: '0', zIndex: '10000' });
@@ -48,12 +77,12 @@ function preventTouch(e){ e.preventDefault(); }
   function openModal(html) {
     lastFocus = document.activeElement;
     ensureRootFixed();
-    lockScroll(true);                // ✅ 스크롤 잠금
+    lockScroll(true);
 
     root.innerHTML = `
-      <div class="modal-backdrop" data-close="1" aria-hidden="false" style="position:fixed;inset:0;">
+      <div class="modal-backdrop" aria-hidden="false" style="position:fixed;inset:0;">
         <div class="modal" role="dialog" aria-modal="true" aria-label="상세 보기">
-          <button class="modal-close" data-close="1" aria-label="닫기">×</button>
+          <button class="modal-close" aria-label="닫기">×</button>
           <div class="modal-body">${html}</div>
         </div>
       </div>`;
@@ -61,6 +90,23 @@ function preventTouch(e){ e.preventDefault(); }
 
     const backdrop = root.querySelector('.modal-backdrop');
     const dialog   = root.querySelector('.modal');
+
+    // ✅ 닫기(버튼/백드롭) — 내부 클릭은 닫히지 않도록 정확히 판별
+    function onCaptureClose(e) {
+      // 백드롭 "자체"를 클릭했을 때만
+      if (e.target === backdrop) {
+        e.preventDefault();
+        closeModal();
+        return;
+      }
+      // 닫기 버튼 클릭
+      if (e.target.closest('.modal-close')) {
+        e.preventDefault();
+        closeModal();
+      }
+    }
+    root.addEventListener('click', onCaptureClose, { capture: true });
+    removeCaptureClose = () => root.removeEventListener('click', onCaptureClose, true);
 
     // inert + 포커스 트랩
     setInertAllExcept(root);
@@ -76,28 +122,33 @@ function preventTouch(e){ e.preventDefault(); }
       else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
     }
     document.addEventListener('keydown', trapTab);
-    removeTrapTab = () => document.removeEventListener('keydown', trapTab); // 👈 저장
+    removeTrapTab = () => document.removeEventListener('keydown', trapTab);
 
-    // ESC / 백드롭 닫기
+    // ESC 닫기
     document.addEventListener('keydown', onKeydown);
-    backdrop.addEventListener('click', (e) => { if (e.target.dataset.close === '1') closeModal(); });
-    dialog.addEventListener('click', (e) => e.stopPropagation()); // 내부 클릭은 닫힘 방지
   }
 
   function closeModal() {
-    // 🔽 먼저 핸들러 해제
     document.removeEventListener('keydown', onKeydown);
     if (removeTrapTab) { removeTrapTab(); removeTrapTab = null; }
-    clearInert();
-    lockScroll(false);
+    if (removeCaptureClose) { removeCaptureClose(); removeCaptureClose = null; }
 
-    // DOM 정리 (이제 비워도 안전)
+    clearInert();
+
     root.hidden = true;
     root.innerHTML = '';
 
+    lockScroll(false); // ← rAF로 다음 프레임에 원래 위치 복원
+
     // 포커스 복귀
-    if (lastFocus && typeof lastFocus.focus === 'function') lastFocus.focus();
-    lastFocus = null;
+    if (lastFocus) {
+      try {
+        const brief = lastFocus.closest?.('.proj-brief');
+        if (brief && typeof brief.blur === 'function') brief.blur();
+        else if (typeof lastFocus.focus === 'function') lastFocus.focus();
+      } catch(_) {}
+      lastFocus = null;
+    }
   }
 
   function onKeydown(e) { if (e.key === 'Escape') closeModal(); }

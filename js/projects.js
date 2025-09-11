@@ -6,6 +6,7 @@
     jyh: {
       title: "jyh.koreait.xyz",
       link: "http://jyh.koreait.xyz",
+      img:  "images/project_jyh.jpg",              // ← 추가
       status: "개선중",
       tech: ["Spring Boot","HTML5","CSS3","MySQL","JPA/Hibernate","REST API","Docker","Docker Hub","AWS"],
       features: ["보류"],
@@ -16,6 +17,7 @@
     addrawing: {
       title: "adddrawing.koreait.xyz",
       link: "http://adddrawing.koreait.xyz",
+      img:  "images/project_addrawing.jpg",        // ← 추가
       status: "개선중",
       tech: ["React","JavaScript","Java","Python","Spring Boot","Docker","Docker Hub","AWS"],
       features: ["사용자가 제시된 주제에 따라 그림을 그리고, 그림이 주제에 맞는지 유사도를 제공"],
@@ -26,6 +28,7 @@
     maengle: {
       title: "maengle.xyz",
       link: "http://maengle.xyz",
+      img:  "images/project_maengle.jpg",          // ← 추가
       status: "운영중",
       tech: ["Spring Boot","HTML5","CSS3","MySQL","JPA/Hibernate","Python","Docker","AWS"],
       features: [
@@ -39,6 +42,7 @@
     chulfudoc: {
       title: "chulfudoc.xyz",
       link: "http://chulfudoc.xyz",
+      img:  "images/project_chulfudoc.jpg",        // ← 추가
       status: "운영중",
       tech: [
         "React","Next.js","TypeScript","CSS3","Spring Boot","JPA/Hibernate",
@@ -60,29 +64,48 @@
     const d = P[key];
     if (!d) return;
 
+    // 아이콘 있는 섹션 타이틀
+    const section = (iconClass, label, bodyHTML) => `
+      <h4 class="icon-title">
+        <i class="${iconClass}" aria-hidden="true"></i>
+        <span>${label}</span>
+      </h4>
+      ${bodyHTML}
+    `;
+
+    // ▼ 텍스트 링크 → 이미지 앵커로 교체 (이미지 없으면 텍스트로 폴백)
+    const linkBlock = d.img
+      ? `
+        <a class="modal-shot-link" href="${d.link}" target="_blank" rel="noopener" aria-label="${d.title} 새 창에서 열기">
+          <img class="modal-shot" src="${d.img}" alt="${d.title} 미리보기 이미지" />
+        </a>
+      `
+      : `
+        <a class="modal-text-link" href="${d.link}" target="_blank" rel="noopener">${d.link}</a>
+      `;
+
     const html = `
       <h3 class="modal-title">${d.title}
         <small style="font-weight:500; margin-left:8px; color:${d.status === '운영중' ? '#2563eb' : '#f59e0b'}">(${d.status})</small>
       </h3>
-      <p class="modal-link"><a href="${d.link}" target="_blank" rel="noopener">${d.link}</a></p>
+
+      <div class="modal-link">
+        ${linkBlock}
+      </div>
+
       <div class="modal-grid">
         <div>
-          <h4>사용 기술</h4>
-          ${toList(d.tech)}
-          <h4>주요 기능</h4>
-          ${toList(d.features)}
-          ${d.responsibility?.length ? `<h4>담당 업무</h4>${toList(d.responsibility)}` : ""}
-          <h4>개발 기간</h4>
-          <p>${d.period}</p>
+          ${section('fa-solid fa-code', '사용 기술', toList(d.tech))}
+          ${section('fa-solid fa-list-check', '주요 기능', toList(d.features))}
+          ${d.responsibility?.length ? section('fa-solid fa-user-gear', '담당 업무', toList(d.responsibility)) : ''}
+          ${section('fa-regular fa-calendar-days', '개발 기간', `<p class="mono">${d.period}</p>`)}
         </div>
       </div>
-      <div class="modal-actions">
-        <a class="btn primary" href="${d.link}" target="_blank" rel="noopener">메인 페이지 열기</a>
-        <button class="btn" data-close="1">닫기</button>
-      </div>
     `;
+
     window.PortfolioModal.open(html);
   }
+
 
   // 헬퍼: 프로젝트 row에서 key 얻기
   function getKeyFromEl(el) {
