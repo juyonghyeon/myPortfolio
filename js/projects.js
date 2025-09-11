@@ -6,29 +6,35 @@
     jyh: {
       title: "jyh.koreait.xyz",
       link: "http://jyh.koreait.xyz",
-      img:  "images/project_jyh.jpg",              // ← 추가
+      img:  "images/project_jyh.jpg",
       status: "개선중",
       tech: ["Spring Boot","HTML5","CSS3","MySQL","JPA/Hibernate","REST API","Docker","Docker Hub","AWS"],
       features: ["보류"],
       responsibility: ["보류"],
       period: "2025-05 ~",
-      oneLine: "유저 접근성 개선중"
+      oneLine: "유저 접근성 개선중",
+      repos: [] // 레포 없으면 비워두기
     },
     addrawing: {
       title: "adddrawing.koreait.xyz",
       link: "http://adddrawing.koreait.xyz",
-      img:  "images/project_addrawing.jpg",        // ← 추가
+      img:  "images/project_addrawing.jpg",
       status: "개선중",
       tech: ["React","JavaScript","Java","Python","Spring Boot","Docker","Docker Hub","AWS"],
       features: ["사용자가 제시된 주제에 따라 그림을 그리고, 그림이 주제에 맞는지 유사도를 제공"],
       responsibility: [],
       period: "2025-06 ~",
-      oneLine: "AI 서버 개선중"
+      oneLine: "AI 서버 개선중",
+      repos: [
+        // 필요 시 실제 레포로 교체
+        { name: "addrawing-front", type: "FE", url: "https://github.com/yourorg/addrawing-front" },
+        { name: "addrawing-api",   type: "BE", url: "https://github.com/yourorg/addrawing-api" }
+      ]
     },
     maengle: {
       title: "maengle.xyz",
       link: "http://maengle.xyz",
-      img:  "images/project_maengle.jpg",          // ← 추가
+      img:  "images/project_maengle.jpg",
       status: "운영중",
       tech: ["Spring Boot","HTML5","CSS3","MySQL","JPA/Hibernate","Python","Docker","AWS"],
       features: [
@@ -37,12 +43,16 @@
       ],
       responsibility: ["마이페이지, 챗봇 서비스"],
       period: "2025-07 ~ 2025-08",
-      oneLine: "회원/관리자 기능 제공 커뮤니티 서비스"
+      oneLine: "회원/관리자 기능 제공 커뮤니티 서비스",
+      repos: [
+        { name: "maengle-front", type: "FE", url: "https://github.com/yourorg/maengle-front" },
+        { name: "maengle-api",   type: "BE", url: "https://github.com/yourorg/maengle-api" }
+      ]
     },
     chulfudoc: {
       title: "chulfudoc.xyz",
       link: "http://chulfudoc.xyz",
-      img:  "images/project_chulfudoc.jpg",        // ← 추가
+      img:  "images/project_chulfudoc.jpg",
       status: "운영중",
       tech: [
         "React","Next.js","TypeScript","CSS3","Spring Boot","JPA/Hibernate",
@@ -51,13 +61,36 @@
       features: ["AI 쓰러짐 감지","응급실 정보 제공","커뮤니티 게시판"],
       responsibility: ["쓰러짐 감지 후 응급 상황 처리","Tmap API 기반 응급의료기관 위치 안내"],
       period: "2025-08 ~ 2025-09",
-      oneLine: "AI 쓰러짐 감지 & 응급실 정보 제공"
+      oneLine: "AI 쓰러짐 감지 & 응급실 정보 제공",
+      repos: [
+        // chulfudoc-front는 실제 존재(기억상). 나머지는 필요시 교체/추가
+        { name: "chulfudoc-front", type: "FE", url: "https://github.com/koreait1/chulfudoc-front" },
+        { name: "chulfudoc-api",   type: "BE", url: "https://github.com/koreait1/chulfudoc-api" },
+        { name: "chulfudoc-ml",    type: "BE", url: "https://github.com/koreait1/chulfudoc-ml" }
+      ]
     }
   };
 
   function toList(items) {
     if (!items || !items.length) return "<em>내용 없음</em>";
     return `<ul>${items.map(x => `<li>${x}</li>`).join("")}</ul>`;
+  }
+
+  // ★ GitHub 레포 리스트 렌더
+  function toRepoList(repos) {
+    if (!repos || !repos.length) return "";
+    return `
+      <ul class="repo-list">
+        ${repos.map(r => `
+          <li>
+            <a href="${r.url}" target="_blank" rel="noopener" class="repo-link">
+              <span class="repo-pill ${r.type || 'ETC'}">${r.type || 'ETC'}</span>
+              <span class="repo-name">${r.name}</span>
+            </a>
+          </li>
+        `).join("")}
+      </ul>
+    `;
   }
 
   function openModal(key) {
@@ -73,7 +106,7 @@
       ${bodyHTML}
     `;
 
-    // ▼ 텍스트 링크 → 이미지 앵커로 교체 (이미지 없으면 텍스트로 폴백)
+    // 텍스트 링크 → 이미지 앵커로 교체 (이미지 없으면 텍스트로 폴백)
     const linkBlock = d.img
       ? `
         <a class="modal-shot-link" href="${d.link}" target="_blank" rel="noopener" aria-label="${d.title} 새 창에서 열기">
@@ -99,13 +132,13 @@
           ${section('fa-solid fa-list-check', '주요 기능', toList(d.features))}
           ${d.responsibility?.length ? section('fa-solid fa-user-gear', '담당 업무', toList(d.responsibility)) : ''}
           ${section('fa-regular fa-calendar-days', '개발 기간', `<p class="mono">${d.period}</p>`)}
+          ${d.repos?.length ? section('fa-brands fa-github', 'GitHub', toRepoList(d.repos)) : ''}  <!-- ★ 추가 -->
         </div>
       </div>
     `;
 
     window.PortfolioModal.open(html);
   }
-
 
   // 헬퍼: 프로젝트 row에서 key 얻기
   function getKeyFromEl(el) {
